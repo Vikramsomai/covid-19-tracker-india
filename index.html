@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid 19 tracker</title>
+</head>
+<body>
+    <style>
+        *{
+        font-family: sans-serif;
+        }
+        .container{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            flex-wrap: wrap;
+        }
+        .card{
+            width:200px;
+            height: 200px;
+            display: flex;
+            padding: 20px;
+           
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: #FFFF;
+            flex-direction: column;
+            margin:20px;
+            border-radius: 20px;
+        }
+        .new{
+            background: #9B72AA;
+        }
+        .deaths{
+            background: #CF0000;
+        }
+        .confirm{
+            background:#3C5186;
+        }
+        .total_confirm{
+            background: #00EAD3;
+        }
+        .total_death{
+            background: red;
+        }
+        .total_recover{
+            background: #2940D3;
+        }
+        .country{
+            text-align: center;
+            background: #005F99;
+            color:#FFFF;
+            height:60px;
+            padding: 20px;;
+        }
+        .case{
+            padding: 5px;
+            font-size: 25px;
+        }
+        @media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+}
+    </style>
+    <div class="country">
+        <h1>covid 19 case in india</h1>
+    </div>
+    <div class="container">
+        <div class="card new">
+           <div class="covid-img"><i class="fas fa-skull-crossbones"></i></div>
+           <div class="covid-title">New Confirmed</div>
+           <div class="case" id="NewConfirmed"></div>
+        </div>
+        <div class="card deaths">
+            <div class="covid-img"></div>
+            <div class="covid-title">New deaths</div>
+            <div class="case" id="newdeaths"></div>
+         </div>
+         <div class="card confirm">
+            <div class="covid-img"></div>
+            <div class="covid-title">New Recovered</div>
+            <div class="case" id="NewRecovered"></div>
+         </div>
+         
+         <div class="card total_confirm">
+            <div class="covid-img"></div>
+            <div class="covid-title">TotalConfirmed</div>
+            <div class="case" id="TotalConfirmed"></div>
+         </div>
+         <div class="card total_death">
+            <div class="covid-img"></div>
+            <div class="covid-title">TotalDeaths</div>
+            <div class="case" id="TotalDeaths"></div>
+         </div>
+         <div class="card total_recover">
+            <div class="covid-img"></div>
+            <div class="covid-title">TotalRecovered</div>
+            <div class="case" id="TotalRecovered"></div>
+         </div>
+
+    </div>
+    <script>
+   fetch('https://api.covid19api.com/summary')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+       
+        console.log(data.Countries[76]);
+        var country=data.Countries[76].Country;
+        document.getElementById("NewConfirmed").innerHTML=data.Countries[76].NewConfirmed;
+        document.getElementById("newdeaths").innerHTML=data.Countries[76].NewDeaths;
+        document.getElementById("NewRecovered").innerHTML=data.Countries[76].NewRecovered;
+        //total
+        document.getElementById("TotalConfirmed").innerHTML=data.Countries[76].TotalConfirmed;
+        document.getElementById("TotalDeaths").innerHTML=data.Countries[76].TotalDeaths;
+     document.getElementById("TotalRecovered").innerHTML=data.Countries[76].TotalRecovered;
+       
+        //TotalConfirmed
+     
+    })
+    .catch(function (err) {
+        console.log("Something went wrong!", err);
+    });
+    
+    </script>
+</body>
+</html>
